@@ -66,6 +66,16 @@ for r in repos:
         #  os.system("cd './backup/' && git clone {}".format(repo_url))
 
 
+script_file.append("echo \"\"")
+script_file.append("echo \"Backup completed.....\"")
+
+# Get the disk usage of the directory
+script_file.append("disk_usage =$(du -sh \"./\")")
+
+# Echo the disk usage
+script_file.append("echo \"The disk usage of $directory is $disk_usage\"")
+
+
 execute_file = "./backup/execute.sh"
 os.makedirs(os.path.dirname(execute_file), exist_ok=True)
 f = open(execute_file, "w")
