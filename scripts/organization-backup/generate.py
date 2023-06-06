@@ -9,7 +9,9 @@ def urlOrganizationRepos(pageNo):
     return "https://api.github.com/orgs/{0}/repos?page={1}".format(ORGANIZATION, pageNo)
 
 
-if not os.path.exists("./backup/repos.json"):
+# Let's always run this for now
+if True or not os.path.exists("./backup/repos.json"):
+    # Already have the
     print("Downloading repo data...")
     r = requests.get(
         url="https://api.github.com/orgs/{0}".format(ORGANIZATION))
@@ -17,6 +19,7 @@ if not os.path.exists("./backup/repos.json"):
 
     repos = []
 
+    # Handle the pagination
     for p in range(1, 1000):
         r = requests.get(url=urlOrganizationRepos(p))
         jsonData = r.json()
@@ -29,6 +32,10 @@ if not os.path.exists("./backup/repos.json"):
         if len(jsonData) == 0:
             break
 
+    # Sort the repos
+    repos.sort(key=lambda x: x['name'])
+
+    # Store the result
     filename = "./backup/repos.json"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, "w") as f:
@@ -40,6 +47,8 @@ else:
     with open(url, 'r') as f:
         repos = json.load(f)
 
+
+# Generate the execution script
 counter = 0
 count = len(repos)
 script_file = []
@@ -57,25 +66,26 @@ for r in repos:
     script_file.append("echo \"{:>3}/{:>3}\"".format(counter, count))
 
     if os.path.exists(path):
+        # Already cloned, therefore only updating
         script_file.append("echo \"Synchronizing \t{0}\"".format(repo_name))
         script_file.append("cd ./{} && git pull && cd ../".format(repo_name))
         # os.system("cd {} && git pull".format(path))
     else:
+        # New repository, need to be clone
         script_file.append("echo \"Downloading \t{0}\"".format(repo_name))
         script_file.append("git clone {} --depth 1".format(repo_url))
         #  os.system("cd './backup/' && git clone {}".format(repo_url))
 
 
+script_file.append("mv -f -T ./repos.json ./repos_backuped.json\"\"")
+
 script_file.append("echo \"\"")
 script_file.append("echo \"Backup completed.....\"")
 
-# Get the disk usage of the directory
-script_file.append("disk_usage =$(du -sh \"./\")")
+# TODO: Print the backup size
+# du -sh ./
 
-# Echo the disk usage
-script_file.append("echo \"The disk usage of $directory is $disk_usage\"")
-
-
+# Save the execute file
 execute_file = "./backup/execute.sh"
 os.makedirs(os.path.dirname(execute_file), exist_ok=True)
 f = open(execute_file, "w")
