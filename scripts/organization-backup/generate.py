@@ -3,6 +3,7 @@ import os
 import json
 
 ORGANIZATION = "cepdnaclk"
+pwd = os.getcwd()
 
 
 def urlOrganizationRepos(pageNo):
@@ -58,6 +59,8 @@ for r in repos:
     repo_name = r['name']
     path = "./backup/{}".format(repo_name)
 
+    print(repo_name)
+
     counter += 1
     # if counter > 5:
     #     break
@@ -68,12 +71,14 @@ for r in repos:
     if os.path.exists(path):
         # Already cloned, therefore only updating
         script_file.append("echo \"Synchronizing \t{0}\"".format(repo_name))
-        script_file.append("cd ./{} && git pull && cd ../".format(repo_name))
+        script_file.append(
+            "cd {}/{} && git pull && cd ../".format(pwd, repo_name))
         # os.system("cd {} && git pull".format(path))
     else:
         # New repository, need to be clone
         script_file.append("echo \"Downloading \t{0}\"".format(repo_name))
-        script_file.append("git clone {} --depth 1".format(repo_url))
+        script_file.append(
+            "cd {} && git clone {} --depth 1".format(pwd, repo_url))
         #  os.system("cd './backup/' && git clone {}".format(repo_url))
 
 
