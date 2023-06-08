@@ -1,9 +1,11 @@
+# Please note that this is implemented for targetting Linux environment
+
 import requests
 import os
 import json
 
 ORGANIZATION = "cepdnaclk"
-pwd = os.getcwd()
+pwd = os.getcwd() + "/backup"
 
 
 def urlOrganizationRepos(pageNo):
