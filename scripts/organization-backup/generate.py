@@ -6,7 +6,7 @@ ORGANIZATION = "cepdnaclk"
 
 
 def urlOrganizationRepos(pageNo):
-    return "https://api.github.com/orgs/{0}/repos?page={1}".format(ORGANIZATION, pageNo)
+    return "https://api.github.com/orgs/{0}/repos?page={1}&per_page=100".format(ORGANIZATION, pageNo)
 
 
 if not os.path.exists("./backup/repos.json"):
