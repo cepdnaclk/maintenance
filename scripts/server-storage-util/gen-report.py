@@ -19,7 +19,7 @@ fOut.write('''
 
 ''')
 
-for ss in ["kepler","turing"]:
+for ss in ["kepler","turing", "babbage"]:
     ff = "../../reports/server-storage-util/logs/{}-storage.log".format(ss)
     fIn = open(ff,"r")
 
@@ -32,6 +32,7 @@ for ss in ["kepler","turing"]:
     <tr>
     <th>Usage</th>
     <th>Path</th>
+    <th>Owner</th>
     </tr>
     ''')
 
@@ -43,7 +44,27 @@ for ss in ["kepler","turing"]:
 
 
     for line in lines[1:]:
-        fOut.write("<tr><td>" + line.split()[0] + "</td><td>" + line.split()[1] + "</td></tr>\n")
+        usageGB = line.split()[0]
+        folder = line.split()[1]
+        
+                
+
+        fOut.write("<tr><td>" + usageGB + "</td><td>" + folder + "</td>")
+
+        if ss=="babbage":
+            studentID = folder.split("/")[3]
+            print(studentID)
+            if studentID[0]=="e" and studentID[1:].isdigit() and int(usageGB[:-1])>100:
+                fOut.write("<td bgcolor=\"yellow\"><a href=\"https://people.ce.pdn.ac.lk/students/e{}/{}/\">profile</a></td>"\
+                           .format(studentID[1:3],studentID[3:6]))
+            else:
+                fOut.write("<td></td>")
+        else:
+            fOut.write("<td></td>")
+        
+        fOut.write("</tr>\n")
+
+
 
     fOut.write('''
     </table>
