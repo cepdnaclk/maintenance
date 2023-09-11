@@ -14,4 +14,4 @@ sudo crontab -e
 
 
 #  Babbage  >>>>>>>>>>>>>
-00 00 * * * date +\%F > /home/e14158/babbage-storage.log; (du -hs --threshold=10G /export/home/*; du -hs --threshold=10G /export/home2/*) | sort -hr >> /home/e14158/babbage-storage.log;
+00 00 * * * date +\%F > /home/e14158/logging/babbage/babbage-storage.log; du -hs --threshold=10G /export/home/* | sort -hr >> /home/e14158/logging/babbage/babbage-storage.log;
