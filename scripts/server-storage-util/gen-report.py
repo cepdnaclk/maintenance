@@ -19,7 +19,7 @@ fOut.write('''
 
 ''')
 
-for ss in ["kepler","turing", "babbage"]:
+for ss in ["kepler", "turing", "ampere", "babbage"]:
     ff = "../../reports/server-storage-util/logs/{}-storage.log".format(ss)
     fIn = open(ff,"r")
 

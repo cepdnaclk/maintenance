@@ -35,6 +35,16 @@ crontab -e
 
 
 
+# AMPERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+crontab -e
+
+00 00 * * * killall nvidia-smi; nvidia-smi --query-gpu=index,timestamp,power.draw,temperature.gpu,utilization.gpu,memory.used --format=csv -l 60 >>  /localHome/servermonitoring/logging/ampere/ampere-gpu-`date +\%Y\%m\%d`.log
+@reboot sleep 300; nvidia-smi --query-gpu=index,timestamp,power.draw,temperature.gpu,utilization.gpu,memory.used --format=csv -l 60 >>  /localHome/servermonitoring/logging/ampere/ampere-gpu-`date +\%Y\%m\%d`.log
+
+
+
+
 
 # ai4COVID >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -47,3 +57,5 @@ crontab -e
 
 00 00 * * * killall nvidia-smi; nvidia-smi --query-gpu=index,timestamp,power.draw,temperature.gpu,utilization.gpu,memory.used --format=csv -l 60 >>  /userhomes/servermonitoring/logging/ai4covid/ai4covid-gpu-`date +\%Y\%m\%d`.log
 @reboot sleep 300; nvidia-smi --query-gpu=index,timestamp,power.draw,temperature.gpu,utilization.gpu,memory.used --format=csv -l 60 >>  /userhomes/gihan/logging/servermonitoring/ai4covid-gpu-`date +\%Y\%m\%d`.log
+
+

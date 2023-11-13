@@ -5,7 +5,7 @@ import json
 from datetime import timedelta
 
 
-SERVERS = ["turing","kepler","ai4covid"]
+SERVERS = ["turing","kepler","ai4covid","ampere"]
 LOGS_DIRECTORY = '../../reports/server-gpu-util/logs/'
 JSON_FILE = "./gpu-info.json"
 OUT_FOLDER = "../../reports/server-gpu-util/plots/"
@@ -29,25 +29,39 @@ if __name__=="__main__":
         # checking if it is a file
         if os.path.isfile(f):
             print(f)
-
+            if not ("gpu-202308" in f or "gpu-202309" in f or "gpu-202310" in f or "gpu-202311" in f): continue
             s = f.split("/")[-1].split("-")[0]
-            if s not in data:
-                data[s] = pd.read_csv(f)
-            else:
-                data[s] = data[s].append(pd.read_csv(f))
             
             
-            
+            fDataFrame = pd.read_csv(f)
+            # if "turing" in f:
+            #     print(fDataFrame.dtypes)
+                
 
-            # data[s].set_index(keys=['gpuid'], drop=False,inplace=True)
+            fDataFrame = fDataFrame.rename(columns=lambda x: x.strip())
+            fDataFrame = fDataFrame.dropna()
+
+            if "gpuid" in  fDataFrame.columns:
+                try:
+                    fDataFrame.gpuid = fDataFrame.gpuid.astype(int)
+                    fDataFrame.timestamp = fDataFrame.timestamp.astype('datetime64[ns]')
+                except:
+                    continue
+
+                if s not in data:
+                    data[s] = fDataFrame
+                else:
+                    data[s] = data[s].append(fDataFrame)
+
+
 
     
     for s in SERVERS:
         print(s)
-        data[s] = data[s].rename(columns=lambda x: x.strip())
-        
+        # data[s] = data[s].rename(columns=lambda x: x.strip())
+        print(data[s])    
         data[s] = data[s][data[s]["gpuid"].apply(lambda x: str(x).isdigit())] #Keep only rows where GPUID \in int 
-
+        print(data[s])
 
         data[s]["timestamp"] = data[s]["timestamp"].apply(pd.to_datetime)
         data[s]["power.draw [W]"] = data[s]["power.draw [W]"].apply(lambda x: float(x.replace(" W","")))
@@ -63,7 +77,9 @@ if __name__=="__main__":
 
 
     for s in data:
+        print(s)
         data[s].head()
+        print("!!!")
         data[s] = data[s].groupby(data[s].timestamp.dt.floor("D")).mean()
         data[s] = data[s].reindex(refinedDateRage,fill_value=0)
         data[s] = data[s].tail(30)
@@ -74,7 +90,9 @@ if __name__=="__main__":
 
     for s in data:
         print(s+"------------------")
-        # print(data[s])
+        print(data[s].columns)
+        print(data[s].head())
+        # _=input("")
         ax = data[s].plot(y=["utilization.gpu [%]","memory.used [MiB]"],secondary_y = ["memory.used [MiB]"],ylim=(0,100),marker="*",\
                           style={"utilization.gpu [%]":"*-r","memory.used [MiB]":"*-b"},lw=0.3)
         ax.set_ylabel("utilization.gpu [%]",color="r")

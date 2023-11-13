@@ -30,5 +30,19 @@
             "memory":32768,
             "active":true
         }
+    },
+    "ampere" : {
+        "0":{
+            "model":"A6000",
+            "memory":49140,
+            "active":true
+        },
+        "1":{
+            "model":"A6000",
+            "memory":49140,
+            "active":true
+        }
     }
+
+
 }
