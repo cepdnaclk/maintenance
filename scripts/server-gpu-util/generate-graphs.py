@@ -16,7 +16,7 @@ if __name__=="__main__":
     # print()
 
     t0 = pd.datetime.now()
-    refinedDateRage = pd.date_range(start= t0 - pd.Timedelta(30, unit='d'), end= t0, freq="D").floor("D")
+    refinedDateRage = pd.date_range(start= t0 - pd.Timedelta(60, unit='d'), end= t0, freq="D").floor("D")
 
 
     data = {}
@@ -29,7 +29,7 @@ if __name__=="__main__":
         # checking if it is a file
         if os.path.isfile(f):
             print(f)
-            if not ("gpu-202308" in f or "gpu-202309" in f or "gpu-202310" in f or "gpu-202311" in f): continue
+            if not ("gpu-2024" in f): continue
             s = f.split("/")[-1].split("-")[0]
             
             
@@ -75,16 +75,16 @@ if __name__=="__main__":
         del data[s]
 
 
-
+    print(">>>>>>>>>>>>>>")
     for s in data:
         print(s)
-        data[s].head()
+        print(data[s].head())
         print("!!!")
         data[s] = data[s].groupby(data[s].timestamp.dt.floor("D")).mean()
         data[s] = data[s].reindex(refinedDateRage,fill_value=0)
         data[s] = data[s].tail(30)
 
-        print(data[s])
+        # print(data[s])
         print("---------------")
 
 

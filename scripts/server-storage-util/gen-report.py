@@ -27,6 +27,7 @@ for ss in ["kepler", "turing", "ampere", "babbage"]:
     fOut.write("<b>{}</b> Read on: </td><td>".format(ss)+lines[0]+"</td></tr><br><br>\n")
 
 
+
     fOut.write('''
     <table border="1" style="border-collapse:collapse;">
     <tr>
@@ -54,7 +55,10 @@ for ss in ["kepler", "turing", "ampere", "babbage"]:
         if ss=="babbage":
             studentID = folder.split("/")[3]
             print(studentID)
-            if studentID[0]=="e" and studentID[1:].isdigit() and int(usageGB[:-1])>100:
+            if studentID[0:3] in ["e"+str(x) for x in range(0,16)]:
+                fOut.write("<td bgcolor=\"orange\"><a href=\"https://people.ce.pdn.ac.lk/students/e{}/{}/\">profile</a></td>"\
+                           .format(studentID[1:3],studentID[3:6]))
+            elif studentID[0]=="e" and studentID[1:].isdigit() and int(usageGB[:-1])>100:
                 fOut.write("<td bgcolor=\"yellow\"><a href=\"https://people.ce.pdn.ac.lk/students/e{}/{}/\">profile</a></td>"\
                            .format(studentID[1:3],studentID[3:6]))
             else:
