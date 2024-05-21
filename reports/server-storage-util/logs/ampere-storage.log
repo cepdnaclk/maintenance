@@ -1,7 +1,10 @@
-2024-03-11
-277G	/storage/scratch1/e18-4yp-multi-kingdom-binning
-254G	/storage/scratch1/e17-4yp-semantic-occupancy
-139G	/storage/scratch2/e18-4yp-stereo-imaging
-55G	/storage/scratch1/e18-4yp-comp-ecg-analysis
+2024-05-21
+582G	/storage/scratch1/e18-4yp-multi-kingdom-binning
+489G	/storage/scratch1/e17-4yp-semantic-occupancy
+400G	/storage/scratch2/e18-4yp-stereo-imaging
+116G	/storage/scratch1/e18-4yp-comp-ecg-analysis
+93G	/storage/scratch1/e18-4yp-bone-loss
 47G	/storage/scratch1/e17-4yp-acc-dnn-nanopore-sup-acc-basecalling
-46G	/storage/scratch1/e18-4yp-bone-loss
+40G	/storage/scratch1/e18-4yp-cv-quality-inspection
+19G	/storage/scratch1/e18-4yp-medical-img-anno
+11G	/storage/scratch1/phd23-pg-skin-classification

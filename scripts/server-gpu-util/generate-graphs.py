@@ -3,13 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import json
 from datetime import timedelta
-
+from argparse import ArgumentParser
 
 SERVERS = ["turing","kepler","ai4covid","ampere"]
 LOGS_DIRECTORY = '../../reports/server-gpu-util/logs/'
 JSON_FILE = "./gpu-info.json"
 OUT_FOLDER = "../../reports/server-gpu-util/plots/"
-
+NO_DAYS = 90
 
 if __name__=="__main__":
 
@@ -82,7 +82,7 @@ if __name__=="__main__":
         print("!!!")
         data[s] = data[s].groupby(data[s].timestamp.dt.floor("D")).mean()
         data[s] = data[s].reindex(refinedDateRage,fill_value=0)
-        data[s] = data[s].tail(30)
+        data[s] = data[s].tail(NO_DAYS)
 
         # print(data[s])
         print("---------------")
