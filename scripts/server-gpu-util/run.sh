@@ -1,5 +1,5 @@
 rm ../../reports/server-gpu-util/plots/*.jpeg
-./download-logs.sh
+#./download-logs.sh
 python generate-graphs.py
 cd ../../
 # git add .
