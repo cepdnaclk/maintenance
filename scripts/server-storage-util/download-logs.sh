@@ -13,3 +13,6 @@ scp -J e14158@tesla.ce.pdn.ac.lk servermonitoring@10.40.18.10:/localHome/serverm
 # scp -P 222 e14158@babbage.ce.pdn.ac.lk:/home/e14158/logging/babbage/*storage* ../../reports/server-storage-util/logs/;
 # 2.b) I can access the same file from tesla.ce.pdn.ac.lk
 scp e14158@tesla.ce.pdn.ac.lk:/home/e14158/logging/babbage/*storage* ../../reports/server-storage-util/logs/;
+
+# 3) Ada server
+scp -J e14158@tesla.ce.pdn.ac.lk servermonitoring@ada.ce.pdn.ac.lk:/localhome/servermonitoring/logging/ada/*storage* ../../reports/server-storage-util/logs/;

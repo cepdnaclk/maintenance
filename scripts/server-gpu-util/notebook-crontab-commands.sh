@@ -59,3 +59,12 @@ crontab -e
 @reboot sleep 300; nvidia-smi --query-gpu=index,timestamp,power.draw,temperature.gpu,utilization.gpu,memory.used --format=csv -l 60 >>  /userhomes/gihan/logging/servermonitoring/ai4covid-gpu-`date +\%Y\%m\%d`.log
 
 
+
+# ADA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+crontab -e
+
+00 00 * * * killall nvidia-smi; nvidia-smi --query-gpu=index,timestamp,power.draw,temperature.gpu,utilization.gpu,memory.used --format=csv -l 60 >>  /localhome/servermonitoring/logging/ada/ada-gpu-`date +\%Y\%m\%d`.log
+@reboot sleep 300; nvidia-smi --query-gpu=index,timestamp,power.draw,temperature.gpu,utilization.gpu,memory.used --format=csv -l 60 >>  /localhome/servermonitoring/logging/ada/ada-gpu-`date +\%Y\%m\%d`.log
+
+

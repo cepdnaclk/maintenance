@@ -42,5 +42,22 @@
             "memory":49140,
             "active":true
         }
+    },
+    "ada" : {
+        "0":{
+            "model":"NVIDIA RTX 6000 Ada Generation",
+            "memory":49140,
+            "active":true
+        },
+        "1":{
+            "model":"NVIDIA RTX 6000 Ada Generation",
+            "memory":49140,
+            "active":true
+        },
+        "2":{
+            "model":"NVIDIA RTX 6000 Ada Generation",
+            "memory":49140,
+            "active":true
+        }
     }
 }
