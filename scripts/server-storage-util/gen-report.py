@@ -21,10 +21,10 @@ fOut.write('''
 <h3 id="listOfServers">List of servers</h3>
 ''')
 
-for ssIdx,ss in enumerate(["kepler", "turing", "ampere", "babbage"]):
+for ssIdx,ss in enumerate(["kepler", "turing", "ampere", "babbage", "ada"]):
     fOut.write("{}. <a href=\"#{}\">{}</a><br>\n".format(ssIdx+1,ss,ss))
 
-for ss in ["kepler", "turing", "ampere", "babbage"]:
+for ss in ["kepler", "turing", "ampere", "babbage", "ada"]:
     ff = "../../reports/server-storage-util/logs/{}-storage.log".format(ss)
     fIn = open(ff,"r")
 

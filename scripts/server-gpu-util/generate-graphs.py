@@ -5,7 +5,7 @@ import json
 from datetime import timedelta
 from argparse import ArgumentParser
 
-SERVERS = ["turing","kepler","ai4covid","ampere"]
+SERVERS = ["turing","kepler","ai4covid","ampere","ada"]
 LOGS_DIRECTORY = '../../reports/server-gpu-util/logs/'
 JSON_FILE = "./gpu-info.json"
 OUT_FOLDER = "../../reports/server-gpu-util/plots/"

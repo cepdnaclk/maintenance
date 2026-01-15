@@ -19,3 +19,8 @@ sudo crontab -e
 
 #  Babbage  >>>>>>>>>>>>>
 00 00 * * * date +\%F > /home/e14158/logging/babbage/babbage-storage.log; du -hs --threshold=10G /export/home/* | sort -hr >> /home/e14158/logging/babbage/babbage-storage.log;
+
+
+# ADA >>>>>>>>>>>>>>>
+
+00 00 * * * date +\%F > /localhome/servermonitoring/logging/ada/ada-storage.log; du -hs --threshold=10G /scratch1/* 2>/dev/null | sort -hr >> /localhome/servermonitoring/logging/ada/ada-storage.log;
