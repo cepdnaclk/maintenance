@@ -1,6 +1,15 @@
 import argparse
 import datetime
 
+SERVER_DOCS = {
+    "kepler":"https://docs.google.com/spreadsheets/d/1qyCokp9XNO9tOghKgX-2SNlR_Gaif1EEOa_mu7_nMOo/edit?usp=sharing",
+    "turing" :"https://docs.google.com/spreadsheets/d/1f8G_oQVhBhKbaI_rw_gcaFTY4OFbP6T7RiUE66l-dvU/edit?usp=sharing", 
+    "ampere":"https://docs.google.com/spreadsheets/d/1p2YNp1HqxB9AmEj46M8egR1LJLmsHQ1kYz5Ncp-icJA/edit?usp=sharing",
+    "ada" :"https://docs.google.com/spreadsheets/d/1v-OgHJj2iGqFuL6z3fmauJLV7rIlX6-EJBW_b1WpeQA/edit?usp=sharing", 
+    "babbage" : None, # No docs for babbage
+}
+
+
 args=argparse.ArgumentParser()
 
 args.add_argument("--outFile","-o",type=str,help="Output file",default="../../reports/server-storage-util/index.html")
@@ -21,15 +30,17 @@ fOut.write('''
 <h3 id="listOfServers">List of servers</h3>
 ''')
 
-for ssIdx,ss in enumerate(["kepler", "turing", "ampere", "babbage", "ada"]):
+for ssIdx,ss in enumerate(SERVER_DOCS.keys()):
     fOut.write("{}. <a href=\"#{}\">{}</a><br>\n".format(ssIdx+1,ss,ss))
 
-for ss in ["kepler", "turing", "ampere", "babbage", "ada"]:
+for ss in SERVER_DOCS.keys():
     ff = "../../reports/server-storage-util/logs/{}-storage.log".format(ss)
     fIn = open(ff,"r")
 
     lines = fIn.readlines()
-    fOut.write("<br><br><h3 id=\"{}\">{}</h3> Read on: {}.\n".format(ss,ss,lines[0]))
+    fOut.write("<br><br><h3 id=\"{}\">{}</h3> Read on: {}. \n".format(ss,ss,lines[0]))
+    if SERVER_DOCS[ss] is not None:
+        fOut.write("[<a href=\"{}\">Documentation</a>]".format(SERVER_DOCS[ss]))
 
     if ss == "babbage":
         fOut.write("<p><span style=\"background: orange\">ORANGE = Alumni using more than 10GB</span></p>")
